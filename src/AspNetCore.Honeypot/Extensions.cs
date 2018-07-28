@@ -13,6 +13,11 @@ namespace AspNetCore.Honeypot
     /// </summary>
     public static class Extensions
     {
+        public static IServiceCollection AddHoneypot(this IServiceCollection services)
+        {
+            return AddHoneypot(services, new HoneypotSettings());
+        }
+
         public static IServiceCollection AddHoneypot(this IServiceCollection services, HoneypotSettings settings)
         {
             services.AddTransient<HoneypotAttribute>();
@@ -34,7 +39,7 @@ namespace AspNetCore.Honeypot
 
         //public static void UseHoneypot(this IHtmlHelper htmlHelper)
         //{
-             
+
         //}
     }
 }
