@@ -27,7 +27,9 @@ https://www.nuget.org/packages/AspNetCore.Honeypot
 <honeypot name="email" class="hide"></honeypot>
 ```
 
-4. Place the honeypot attribute to your action method.
+4. Bot detection handling
+
+4.1 Place the honeypot attribute to your action method for automatic bot detection handling.
 
 ```cs
   [Honeypot]
@@ -37,4 +39,22 @@ https://www.nuget.org/packages/AspNetCore.Honeypot
       //..
   }
 ```
+
+4.2 Use the extension method to handle bot detection by yourself.
+```cs
+  [HttpPost]
+  public async Task<IActionResult> PostRegister(RegisterViewModel registerData)
+  {
+      if (HttpContext.IsHoneypotTrapped())
+      {
+          ModelState.Clear();
+          ModelState.AddModelError("", "bot detection");
+
+          //log
+
+          return View("Register", new RegisterViewModel());
+      }
+  }
+```
+
 
