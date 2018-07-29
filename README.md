@@ -2,6 +2,8 @@
 
 It's a simple honeypot implementation for ASP.NET Core to detect bot posts.
 
+https://www.nuget.org/packages/AspNetCore.Honeypot
+
 ## How to use it ##
 
 1. Register honeypot service.
