@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>usercode</Authors>
+    <Description>Simple honeypot implementation for ASP.NET Core to detect bot posts.</Description>
+    <PackageProjectUrl>https://github.com/usercode/AspNetCore.Honeypot</PackageProjectUrl>
+    <PackageTags>asp.net; honeypot</PackageTags>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
