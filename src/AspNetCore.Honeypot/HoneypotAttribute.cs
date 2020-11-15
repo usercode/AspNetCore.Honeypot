@@ -40,7 +40,7 @@ namespace AspNetCore.Honeypot
         {
             base.OnActionExecuting(context);
 
-            bool isTrapped = new HoneypotService().IsTrapped(context.HttpContext);
+            bool isTrapped = context.HttpContext.IsHoneypotTrapped();
 
             if(isTrapped == true)
             {

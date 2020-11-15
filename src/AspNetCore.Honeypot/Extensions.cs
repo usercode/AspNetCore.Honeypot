@@ -36,10 +36,5 @@ namespace AspNetCore.Honeypot
         {
             return new HoneypotService().IsTrapped(httpContext);
         }
-
-        //public static void UseHoneypot(this IHtmlHelper htmlHelper)
-        //{
-
-        //}
     }
 }

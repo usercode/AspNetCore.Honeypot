@@ -15,7 +15,7 @@ namespace AspNetCore.Honeypot
 
         }
 
-        public HoneypotSettings(String prefix)
+        public HoneypotSettings(string prefix)
         {
             Prefix = prefix;
         }
@@ -23,19 +23,19 @@ namespace AspNetCore.Honeypot
         /// <summary>
         /// Prefix
         /// </summary>
-        public String Prefix { get; set; }
+        public string Prefix { get; set; }
         
-        internal bool IsFieldName(String name)
+        internal bool IsFieldName(string name)
         {
             return name.StartsWith($"{Prefix}");
         }
 
-        internal String GetFieldName(String name)
+        internal string GetFieldName(string name)
         {
             return $"{Prefix}{name}";
         }
 
-        internal String GetTimeFieldName()
+        internal string GetTimeFieldName()
         {
             return $"{Prefix}_time";
         }

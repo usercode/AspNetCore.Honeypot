@@ -13,7 +13,7 @@ namespace AspNetCore.Honeypot
     /// </summary>
     class HoneypotService
     {
-        public const String HttpContextItemName = "AspNetCore.Honeypot.IsHoneypotTrapped";
+        public const string HttpContextItemName = "AspNetCore.Honeypot.IsHoneypotTrapped";
 
         public HoneypotService()
         {
@@ -27,12 +27,12 @@ namespace AspNetCore.Honeypot
         /// <returns></returns>
         public bool IsTrapped(HttpContext httpContext)
         {
-            if (httpContext.Items.TryGetValue(HttpContextItemName, out Object value) == false)
+            if (httpContext.Items.TryGetValue(HttpContextItemName, out object value) == false)
             {
                 HoneypotSettings settings = httpContext.RequestServices.GetRequiredService<HoneypotSettings>();
 
                 bool trapped = httpContext.Request.Form
-                                                    .Any(x => settings.IsFieldName(x.Key) && x.Value.Any(v => String.IsNullOrEmpty(v) == false));
+                                                    .Any(x => settings.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
                 
                 httpContext.Items.Add(HttpContextItemName, trapped);
 

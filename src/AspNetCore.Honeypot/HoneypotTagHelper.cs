@@ -24,7 +24,7 @@ namespace AspNetCore.Honeypot
         /// <summary>
         /// Name
         /// </summary>
-        public String Name { get; set; }
+        public string Name { get; set; }
         
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -32,7 +32,7 @@ namespace AspNetCore.Honeypot
 
             output.TagName = "div";
 
-            String fieldName = Settings.GetFieldName(Name);
+            string fieldName = Settings.GetFieldName(Name);
 
             TagBuilder input = new TagBuilder("input");
             input.MergeAttribute("name", fieldName);
