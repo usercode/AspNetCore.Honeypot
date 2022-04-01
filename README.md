@@ -23,10 +23,12 @@ https://www.nuget.org/packages/AspNetCore.Honeypot
 @addTagHelper *, AspNetCore.Honeypot
 ```
 
-3. Place honeypot tag to a form with a custom name (e.g. "name", "email" or "city") and use *your* css class to hide it.
+3. Place any honeypot tag to a form with a custom name (e.g. "name", "email" or "city") and use *your* css class to hide it.
 
 ```html
-<honeypot name="email" class="hide"></honeypot>
+<honeypot-field name="email" class="hide" />
+<honeypot-field name="name" class="hide" />
+<honeypot-field name="city" class="hide" />
 ```
 
 4. Bot detection handling
