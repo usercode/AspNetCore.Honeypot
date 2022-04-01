@@ -31,7 +31,12 @@ https://www.nuget.org/packages/AspNetCore.Honeypot
 <honeypot-field name="city" class="hide" />
 ```
 
-4. Bot detection handling
+4. Place one time-based honeypot tag. 
+```html
+<honeypot-time />
+```
+
+6. Bot detection handling
 
 4.1 Place the honeypot attribute to your action method for automatic bot detection handling.
 
