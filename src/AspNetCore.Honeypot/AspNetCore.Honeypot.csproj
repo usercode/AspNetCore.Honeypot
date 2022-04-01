@@ -1,16 +1,30 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+	<Nullable>enable</Nullable>
     <Authors>usercode</Authors>
-    <Description>Simple honeypot implementation for ASP.NET Core to detect bot posts.</Description>
-    <PackageProjectUrl>https://github.com/usercode/AspNetCore.Honeypot</PackageProjectUrl>
-    <PackageTags>asp.net; honeypot</PackageTags>
-    <Version>1.0.5</Version>
+    <Description>Simple honeypot implementation for ASP.NET Core to detect bot posts.</Description>    
+    <Version>1.1.0</Version>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<PackageProjectUrl>https://github.com/usercode/AspNetCore.Honeypot</PackageProjectUrl>
+	<PackageIcon>usercode.png</PackageIcon>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageTags>asp.net; honeypot</PackageTags>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
+	
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspnetCore.App" />
   </ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\usercode.png" Pack="true" PackagePath="" />
+	</ItemGroup>
   
 </Project>

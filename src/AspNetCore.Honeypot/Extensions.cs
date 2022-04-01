@@ -6,35 +6,35 @@ using System;
 using System.Linq;
 using System.Net.Http;
 
-namespace AspNetCore.Honeypot
+namespace AspNetCore.Honeypot;
+
+/// <summary>
+/// Extensions
+/// </summary>
+public static class Extensions
 {
-    /// <summary>
-    /// Extensions
-    /// </summary>
-    public static class Extensions
+    public static IServiceCollection AddHoneypot(this IServiceCollection services)
     {
-        public static IServiceCollection AddHoneypot(this IServiceCollection services)
-        {
-            return AddHoneypot(services, new HoneypotSettings());
-        }
+        return AddHoneypot(services, x => { });
+    }
 
-        public static IServiceCollection AddHoneypot(this IServiceCollection services, HoneypotSettings settings)
-        {
-            services.AddTransient<HoneypotAttribute>();
-            services.AddTransient<HoneypotService>();
-            services.AddSingleton(settings);
+    public static IServiceCollection AddHoneypot(this IServiceCollection services, Action<HoneypotOptions> options)
+    {
+        services.Configure(options);
+        services.AddTransient<HoneypotService>();
 
-            return services;
-        }
+        return services;
+    }
 
-        /// <summary>
-        /// IsHoneypotTrapped
-        /// </summary>
-        /// <param name="httpContext"></param>
-        /// <returns></returns>
-        public static bool IsHoneypotTrapped(this HttpContext httpContext)
-        {
-            return new HoneypotService().IsTrapped(httpContext);
-        }
+    /// <summary>
+    /// IsHoneypotTrapped
+    /// </summary>
+    /// <param name="httpContext"></param>
+    /// <returns></returns>
+    public static bool IsHoneypotTrapped(this HttpContext httpContext)
+    {
+        HoneypotService service = httpContext.RequestServices.GetRequiredService<HoneypotService>();
+
+        return service.IsTrapped(httpContext);
     }
 }

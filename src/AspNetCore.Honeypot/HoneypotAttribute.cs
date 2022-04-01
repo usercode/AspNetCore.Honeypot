@@ -6,46 +6,25 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
-namespace AspNetCore.Honeypot
+namespace AspNetCore.Honeypot;
+
+/// <summary>
+/// HoneypotAttribute
+/// </summary>
+public class HoneypotAttribute : ActionFilterAttribute
 {
-    /// <summary>
-    /// HoneyFieldValidationAttribute
-    /// </summary>
-    public class HoneypotAttribute : ActionFilterAttribute, IFilterFactory
+    public override void OnActionExecuting(ActionExecutingContext context)
     {
-        public HoneypotAttribute()
+        base.OnActionExecuting(context);
+
+        bool isTrapped = context.HttpContext.IsHoneypotTrapped();
+
+        if (isTrapped == true)
         {
-
-        }
-
-        public HoneypotAttribute(HoneypotSettings settings)
-        {
-            Settings = settings;
-        }
-
-        /// <summary>
-        /// Settings
-        /// </summary>
-        public HoneypotSettings Settings { get; }
-
-        public bool IsReusable => true;
-
-        public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
-        {
-            return (IFilterMetadata)serviceProvider.GetService(typeof(HoneypotAttribute));
-        }
-
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            base.OnActionExecuting(context);
-
-            bool isTrapped = context.HttpContext.IsHoneypotTrapped();
-
-            if(isTrapped == true)
-            {
-                context.Result = new ContentResult() { Content = "bot detection", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.OK };
-            }
+            context.Result = new ContentResult() { Content = "bot detection", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.OK };
         }
     }
 }
