@@ -32,6 +32,6 @@ public class HoneypotTimeTagHelper : TagHelper
         output.Attributes.Add("name", Options.TimeFieldName);
         output.Attributes.Add("id", Options.TimeFieldName);
         output.Attributes.Add("type", "hidden");
-        output.Content.Append(DateTime.UtcNow.Ticks.ToString());
+        output.Attributes.Add("value", DateTime.UtcNow.Ticks.ToString());
     }
 }
