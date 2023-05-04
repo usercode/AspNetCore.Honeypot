@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AspNetCore.Honeypot;
+﻿namespace AspNetCore.Honeypot;
 
 /// <summary>
 /// HoneypotOptions
@@ -17,22 +13,22 @@ public class HoneypotOptions
 
     public HoneypotOptions(string prefix)
     {
-        EnableFieldCheck = true;
-        EnableTimeCheck = true;
+        IsFieldCheckEnabled = true;
+        IsTimeCheckEnabled = true;
         PrefixFieldName = prefix; 
         TimeFieldName = "_time";
-        MinTimeDuration = TimeSpan.FromSeconds(2);
+        MinTimeDuration = TimeSpan.FromSeconds(1);
     }
 
     /// <summary>
     /// EnableFieldCheck
     /// </summary>
-    public bool EnableFieldCheck { get; set; }
+    public bool IsFieldCheckEnabled { get; set; }
 
     /// <summary>
     /// EnableTimeCheck
     /// </summary>
-    public bool EnableTimeCheck { get; set; }
+    public bool IsTimeCheckEnabled { get; set; }
 
     /// <summary>
     /// PrefixFieldName

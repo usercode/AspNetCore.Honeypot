@@ -2,29 +2,38 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	<Nullable>enable</Nullable>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <Authors>usercode</Authors>
     <Description>Simple honeypot implementation for ASP.NET Core to detect bot posts.</Description>    
-    <Version>1.1.0</Version>
-	<PublishRepositoryUrl>true</PublishRepositoryUrl>
-	<PackageProjectUrl>https://github.com/usercode/AspNetCore.Honeypot</PackageProjectUrl>
-	<PackageIcon>usercode.png</PackageIcon>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<PackageTags>asp.net; honeypot</PackageTags>
-	<IncludeSymbols>true</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageProjectUrl>https://github.com/usercode/AspNetCore.Honeypot</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>asp.net; honeypot</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-	</ItemGroup>
-	
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspnetCore.App" />
   </ItemGroup>
 
-	<ItemGroup>
-		<None Include="..\usercode.png" Pack="true" PackagePath="" />
-	</ItemGroup>
-  
+  <ItemGroup>
+    <None Include="..\..\logo.png" Pack="true" PackagePath="" />
+    <None Include="..\..\readme.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="4.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>

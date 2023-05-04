@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace AspNetCore.Honeypot;
 
@@ -38,13 +32,13 @@ class HoneypotService
         {
             bool trapped = false;
 
-            if (Options.EnableFieldCheck)
+            if (Options.IsFieldCheckEnabled)
             {
                 //check fields
                 trapped = httpContext.Request.Form.Any(x => Options.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
             }
 
-            if (Options.EnableTimeCheck && trapped == false)
+            if (Options.IsTimeCheckEnabled && trapped == false)
             {
                 //check time
                 if (httpContext.Request.Form.TryGetValue(Options.TimeFieldName, out StringValues timeValues))

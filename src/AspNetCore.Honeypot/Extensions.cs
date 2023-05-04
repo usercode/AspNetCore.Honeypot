@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Net.Http;
 
 namespace AspNetCore.Honeypot;
 
@@ -13,14 +8,19 @@ namespace AspNetCore.Honeypot;
 /// </summary>
 public static class Extensions
 {
-    public static IServiceCollection AddHoneypot(this IServiceCollection services)
+    /// <summary>
+    /// AddHoneypot
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddHoneypot(this IServiceCollection services, Action<HoneypotOptions>? options = null)
     {
-        return AddHoneypot(services, x => { });
-    }
+        if (options != null)
+        {
+            services.Configure(options);
+        }
 
-    public static IServiceCollection AddHoneypot(this IServiceCollection services, Action<HoneypotOptions> options)
-    {
-        services.Configure(options);
         services.AddTransient<HoneypotService>();
 
         return services;
