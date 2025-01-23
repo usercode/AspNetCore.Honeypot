@@ -5,45 +5,30 @@
 /// </summary>
 public class HoneypotOptions
 {
-    public HoneypotOptions()
-        : this("hp_")
-    {
-        
-    }
-
-    public HoneypotOptions(string prefix)
-    {
-        IsFieldCheckEnabled = true;
-        IsTimeCheckEnabled = true;
-        PrefixFieldName = prefix; 
-        TimeFieldName = "_time";
-        MinTimeDuration = TimeSpan.FromSeconds(1);
-    }
-
     /// <summary>
     /// EnableFieldCheck
     /// </summary>
-    public bool IsFieldCheckEnabled { get; set; }
+    public bool IsFieldCheckEnabled { get; set; } = true;
 
     /// <summary>
     /// EnableTimeCheck
     /// </summary>
-    public bool IsTimeCheckEnabled { get; set; }
+    public bool IsTimeCheckEnabled { get; set; } = true;
 
     /// <summary>
     /// PrefixFieldName
     /// </summary>
-    public string PrefixFieldName { get; set; }
+    public string PrefixFieldName { get; set; } = "hp_";
 
     /// <summary>
     /// TimeFieldName
     /// </summary>
-    public string TimeFieldName { get; set; }
+    public string TimeFieldName { get; set; } = "_time";
 
     /// <summary>
     /// MinTimeDuration
     /// </summary>
-    public TimeSpan MinTimeDuration { get; set; }
+    public TimeSpan MinTimeDuration { get; set; } = TimeSpan.FromSeconds(1);
 
     internal bool IsFieldName(string name)
     {

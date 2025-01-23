@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Net;
 
 namespace AspNetCore.Honeypot;
 
@@ -17,7 +17,7 @@ public class HoneypotAttribute : ActionFilterAttribute
 
         if (isTrapped == true)
         {
-            context.Result = new ContentResult() { Content = "bot detection", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.OK };
+            context.Result = new ContentResult() { Content = "bot detection", ContentType = "text/plain", StatusCode = StatusCodes.Status200OK };
         }
     }
 }

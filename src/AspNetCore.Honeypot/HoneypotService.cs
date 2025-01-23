@@ -24,21 +24,24 @@ class HoneypotService
     /// <summary>
     /// IsTrapped
     /// </summary>
-    /// <param name="httpContext"></param>
-    /// <returns></returns>
     public bool IsTrapped(HttpContext httpContext)
     {
         if (httpContext.Items.TryGetValue(HttpContextItemName, out object? value) == false)
         {
             bool trapped = false;
 
-            if (Options.IsFieldCheckEnabled)
+            if (httpContext.Request.HasFormContentType == false)
+            {
+                trapped = true;
+            }
+
+            if (trapped == false && Options.IsFieldCheckEnabled)
             {
                 //check fields
                 trapped = httpContext.Request.Form.Any(x => Options.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
             }
 
-            if (Options.IsTimeCheckEnabled && trapped == false)
+            if (trapped == false && Options.IsTimeCheckEnabled)
             {
                 //check time
                 if (httpContext.Request.Form.TryGetValue(Options.TimeFieldName, out StringValues timeValues))
