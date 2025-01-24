@@ -52,7 +52,7 @@ It's a simple honeypot implementation for ASP.NET Core to detect bot posts.
   [HttpPost]
   public async Task<IActionResult> PostRegister(RegisterViewModel registerData)
   {
-      if (HttpContext.IsHoneypotTrapped())
+      if (await HttpContext.IsHoneypotTriggeredAsync())
       {
           ModelState.Clear();
           ModelState.AddModelError("", "bot detection");
