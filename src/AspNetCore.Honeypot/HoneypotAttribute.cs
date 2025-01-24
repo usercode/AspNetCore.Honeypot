@@ -9,15 +9,15 @@ namespace AspNetCore.Honeypot;
 /// </summary>
 public class HoneypotAttribute : ActionFilterAttribute
 {
-    public override void OnActionExecuting(ActionExecutingContext context)
+    public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        base.OnActionExecuting(context);
+        bool triggered = await context.HttpContext.IsHoneypotTriggeredAsync();
 
-        bool isTrapped = context.HttpContext.IsHoneypotTrapped();
-
-        if (isTrapped == true)
+        if (triggered == true)
         {
             context.Result = new ContentResult() { Content = "bot detection", ContentType = "text/plain", StatusCode = StatusCodes.Status200OK };
         }
+
+        await base.OnActionExecutionAsync(context, next);
     }
 }

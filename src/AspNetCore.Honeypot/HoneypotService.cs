@@ -9,7 +9,7 @@ namespace AspNetCore.Honeypot;
 /// </summary>
 class HoneypotService
 {
-    public const string HttpContextItemName = "AspNetCore.Honeypot.IsHoneypotTrapped";
+    public const string HttpContextItemName = "AspNetCore.Honeypot.IsHoneypotTriggered";
 
     public HoneypotService(IOptions<HoneypotOptions> options)
     {
@@ -22,42 +22,51 @@ class HoneypotService
     private HoneypotOptions Options { get; }
 
     /// <summary>
-    /// IsTrapped
+    /// Is honeypot triggered?
     /// </summary>
-    public bool IsTrapped(HttpContext httpContext)
+    public async Task<bool> IsTriggeredAsync(HttpContext httpContext)
     {
         if (httpContext.Items.TryGetValue(HttpContextItemName, out object? value) == false)
         {
-            bool trapped = false;
+            bool triggered = false;
 
             if (httpContext.Request.HasFormContentType == false)
             {
-                trapped = true;
+                triggered = true;
             }
 
-            if (trapped == false && Options.IsFieldCheckEnabled)
+            IFormCollection form = await httpContext.Request.ReadFormAsync();
+
+            if (triggered == false && Options.IsFieldCheckEnabled)
             {
                 //check fields
-                trapped = httpContext.Request.Form.Any(x => Options.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
+                triggered = form.Any(x => Options.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
             }
 
-            if (trapped == false && Options.IsTimeCheckEnabled)
+            if (triggered == false && Options.IsTimeCheckEnabled)
             {
                 //check time
-                if (httpContext.Request.Form.TryGetValue(Options.TimeFieldName, out StringValues timeValues))
+                if (form.TryGetValue(Options.TimeFieldName, out StringValues timeValues))
                 {
-                    if (timeValues.Any())
+                    if (timeValues.Count > 0 && timeValues[0] is string timeValue)
                     {
-                        TimeSpan diff = DateTime.UtcNow - new DateTime(long.Parse(timeValues.First()), DateTimeKind.Utc);
+                        if (long.TryParse(timeValue, out long time))
+                        {
+                            TimeSpan diff = DateTime.UtcNow - new DateTime(time, DateTimeKind.Utc);
 
-                        trapped = diff < Options.MinTimeDuration;
+                            triggered = diff < Options.MinResponseTime;
+                        }
+                        else
+                        {
+                            triggered = true; //time field doesn't contain long value.
+                        }
                     }
                 }
             }
 
-            httpContext.Items.Add(HttpContextItemName, trapped);
+            httpContext.Items.Add(HttpContextItemName, triggered);
 
-            return trapped;
+            return triggered;
         }
         else
         {

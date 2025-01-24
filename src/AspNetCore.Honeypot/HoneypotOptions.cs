@@ -6,29 +6,29 @@
 public class HoneypotOptions
 {
     /// <summary>
-    /// EnableFieldCheck
+    /// Is field check enabled?
     /// </summary>
     public bool IsFieldCheckEnabled { get; set; } = true;
 
     /// <summary>
-    /// EnableTimeCheck
+    /// Is time check enabled?
     /// </summary>
     public bool IsTimeCheckEnabled { get; set; } = true;
 
     /// <summary>
-    /// PrefixFieldName
+    /// Prefix for fields.
     /// </summary>
     public string PrefixFieldName { get; set; } = "hp_";
 
     /// <summary>
-    /// TimeFieldName
+    /// Prefix for time fields.
     /// </summary>
     public string TimeFieldName { get; set; } = "_time";
 
     /// <summary>
-    /// MinTimeDuration
+    /// Minimal time for user response.
     /// </summary>
-    public TimeSpan MinTimeDuration { get; set; } = TimeSpan.FromSeconds(1);
+    public TimeSpan MinResponseTime { get; set; } = TimeSpan.FromSeconds(1);
 
     internal bool IsFieldName(string name)
     {
