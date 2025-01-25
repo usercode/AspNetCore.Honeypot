@@ -10,7 +10,6 @@ public class HoneypotFieldTagHelper : TagHelper
 {
     public HoneypotFieldTagHelper(IOptions<HoneypotOptions> options)
     {
-        Name = "name";
         Options = options.Value;
     }
 
@@ -22,7 +21,7 @@ public class HoneypotFieldTagHelper : TagHelper
     /// <summary>
     /// Name
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = "name";
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {

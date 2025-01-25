@@ -16,7 +16,7 @@ public class HoneypotTimeTagHelper : TagHelper
     /// <summary>
     /// Options
     /// </summary>
-    public HoneypotOptions Options { get; }    
+    public HoneypotOptions Options { get; }
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {

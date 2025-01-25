@@ -34,31 +34,33 @@ class HoneypotService
             {
                 triggered = true;
             }
-
-            IFormCollection form = await httpContext.Request.ReadFormAsync();
-
-            if (triggered == false && Options.IsFieldCheckEnabled)
+            else
             {
-                //check fields
-                triggered = form.Any(x => Options.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
-            }
+                IFormCollection form = await httpContext.Request.ReadFormAsync();
 
-            if (triggered == false && Options.IsTimeCheckEnabled)
-            {
-                //check time
-                if (form.TryGetValue(Options.TimeFieldName, out StringValues timeValues))
+                if (triggered == false && Options.IsFieldCheckEnabled)
                 {
-                    if (timeValues.Count > 0 && timeValues[0] is string timeValue)
-                    {
-                        if (long.TryParse(timeValue, out long time))
-                        {
-                            TimeSpan diff = DateTime.UtcNow - new DateTime(time, DateTimeKind.Utc);
+                    //check fields
+                    triggered = form.Any(x => Options.IsFieldName(x.Key) && x.Value.Any(v => string.IsNullOrEmpty(v) == false));
+                }
 
-                            triggered = diff < Options.MinResponseTime;
-                        }
-                        else
+                if (triggered == false && Options.IsTimeCheckEnabled)
+                {
+                    //check time
+                    if (form.TryGetValue(Options.TimeFieldName, out StringValues timeValues))
+                    {
+                        if (timeValues.Count > 0 && timeValues[0] is string timeValue)
                         {
-                            triggered = true; //time field doesn't contain long value.
+                            if (long.TryParse(timeValue, out long time))
+                            {
+                                TimeSpan diff = DateTime.UtcNow - new DateTime(time, DateTimeKind.Utc);
+
+                                triggered = diff < Options.MinResponseTime;
+                            }
+                            else
+                            {
+                                triggered = true; //time field doesn't contain long value.
+                            }
                         }
                     }
                 }
