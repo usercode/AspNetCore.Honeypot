@@ -2,6 +2,7 @@
 
 It's a simple honeypot implementation for ASP.NET Core to detect bot posts.
   
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![nuget](https://img.shields.io/nuget/v/AspNetCore.Honeypot.svg)](https://www.nuget.org/packages/AspNetCore.Honeypot)
   
 ## How to use it ##
